@@ -16,20 +16,27 @@ string encrypt(string text, int depth)
     return cipher;
 }
 
-// string decrypt(string cipher, int depth)
-// {
-//     string plain = "";
-//     int k = 0;
-//     while (k < depth)
-//     {
-//         for (int i = k; i < cipher.length(); i = i + depth)
-//         {
-//             plain += cipher[i];
-//         }
-//         k++;
-//     }
-//     return plain;
-// }
+string decrypt(string cipher, int depth)
+{
+    string plain = "";
+    int k = 0;
+    int l;
+    int len = cipher.length() / depth;
+    if (cipher.length() % depth != 0)
+        len++;
+    for (int i = 0; i < len; i++)
+    {
+        k = 0;
+        l = i;
+        while (k < depth)
+        {
+            plain += cipher[l];
+            l += len;
+            k++;
+        }
+    }
+    return plain;
+}
 
 int main()
 {
@@ -41,7 +48,7 @@ int main()
     cout << "\nDepth: " << depth;
     string cipher = encrypt(text, depth);
     cout << "\nCipher: " << cipher;
-    // string plain = decrypt(cipher, depth);
-    // cout << "\nPlain: " << plain;
+    string plain = decrypt(cipher, depth);
+    cout << "\nPlain: " << plain;
     return 0;
 }
